@@ -1,0 +1,100 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    INV
+
+Grammar
+
+Rule 0     S' -> html_tag
+Rule 1     html_tag -> OPEN SRC ALT args END
+Rule 2     args -> ID
+Rule 3     args -> args ID
+
+Terminals, with rules where they appear
+
+ALT                  : 1
+END                  : 1
+ID                   : 2 3
+INV                  : 
+OPEN                 : 1
+SRC                  : 1
+error                : 
+
+Nonterminals, with rules where they appear
+
+args                 : 1 3
+html_tag             : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . html_tag
+    (1) html_tag -> . OPEN SRC ALT args END
+
+    OPEN            shift and go to state 2
+
+    html_tag                       shift and go to state 1
+
+state 1
+
+    (0) S' -> html_tag .
+
+
+
+state 2
+
+    (1) html_tag -> OPEN . SRC ALT args END
+
+    SRC             shift and go to state 3
+
+
+state 3
+
+    (1) html_tag -> OPEN SRC . ALT args END
+
+    ALT             shift and go to state 4
+
+
+state 4
+
+    (1) html_tag -> OPEN SRC ALT . args END
+    (2) args -> . ID
+    (3) args -> . args ID
+
+    ID              shift and go to state 6
+
+    args                           shift and go to state 5
+
+state 5
+
+    (1) html_tag -> OPEN SRC ALT args . END
+    (3) args -> args . ID
+
+    END             shift and go to state 7
+    ID              shift and go to state 8
+
+
+state 6
+
+    (2) args -> ID .
+
+    END             reduce using rule 2 (args -> ID .)
+    ID              reduce using rule 2 (args -> ID .)
+
+
+state 7
+
+    (1) html_tag -> OPEN SRC ALT args END .
+
+    $end            reduce using rule 1 (html_tag -> OPEN SRC ALT args END .)
+
+
+state 8
+
+    (3) args -> args ID .
+
+    END             reduce using rule 3 (args -> args ID .)
+    ID              reduce using rule 3 (args -> args ID .)
+
